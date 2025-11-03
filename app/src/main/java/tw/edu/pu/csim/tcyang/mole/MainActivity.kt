@@ -27,15 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import tw.edu.pu.csim.tcyang.mole.ui.theme.MoleTheme
 
 
-// DP-to-pixel轉換
-val density = LocalDensity.current
 
-// 地鼠Dp轉Px
-val moleSizeDp = 150.dp
-val moleSizePx = with(density) { moleSizeDp.roundToPx() }
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +48,22 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MoleScreen() {
-    val counter = MoleViewModel.counter
-    val stay = MoleViewModel.stay
+// DP-to-pixel轉換
+    val density = LocalDensity.current
+    val moleViewModel: MoleViewModel = viewModel()
+
+// 地鼠Dp轉Px
+    val moleSizeDp = 150.dp
+    val moleSizePx = with(density) {
+        moleSizeDp.roundToPx()
+    }
+    val counter = moleViewModel.counter
+    val stay = moleViewModel.stay
     Box (
         modifier = Modifier
             .fillMaxSize()
             .onSizeChanged { intSize ->  // 用來獲取全螢幕尺寸px
-                MoleViewModel.getArea(intSize,moleSizePx) },
+                moleViewModel.getArea(intSize,moleSizePx) },
         Alignment.Center
 
     ) {
@@ -68,14 +74,14 @@ fun MoleScreen() {
         painter = painterResource(id = R.drawable.mole),
         contentDescription = "地鼠",
         modifier = Modifier
-            .offset { IntOffset(MoleViewModel.offsetX, MoleViewModel.offsetY) }
+            .offset { IntOffset(moleViewModel.offsetX, moleViewModel.offsetY) }
             .size(moleSizeDp)
-            .clickable { MoleViewModel.incrementCounter() }
+            .clickable { moleViewModel.incrementCounter() }
     )
     @Composable
     fun MoleScreen() {
-        val counter = MoleViewModel.counter
-        val stay = MoleViewModel.stay
+        val counter = moleViewModel.counter
+        val stay = moleViewModel.stay
         Box (
             modifier = Modifier.fillMaxSize(),
             Alignment.Center

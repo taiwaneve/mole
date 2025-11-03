@@ -62,19 +62,4 @@ class MoleViewModel : ViewModel(){
         offsetX = (0..maxX).random()
         offsetY = (0..maxY).random()
     }
-
-    companion object {
-        fun incrementCounter() {
-            TODO("Not yet implemented")
-        }
-
-        fun getArea(intSize: IntSize, moleSizePx: Any) {}
-
-        val offsetY: Int
-        val offsetX: Int
-        val stay: Any
-        val counter: Any
-    }
-
-
 }
