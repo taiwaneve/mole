@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import tw.edu.pu.csim.tcyang.mole.ui.theme.MoleTheme
 
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +43,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MoleScreen() {
-    var counter by rememberSaveable { mutableLongStateOf(0) }
+    val counter = MoleViewModel.counter
+    val stay = MoleViewModel.stay
     Box (
         modifier = Modifier.fillMaxSize(),
         Alignment.Center
     ) {
-        Text(counter.toString())
+        Text("分數: $counter \n時間: $stay")
     }
 
     Image(
@@ -55,8 +58,30 @@ fun MoleScreen() {
         modifier = Modifier
             .offset { IntOffset(50, 200) }
             .size(150.dp)
-            .clickable { counter++ }
+            .clickable { MoleViewModel.incrementCounter() }
     )
+    @Composable
+    fun MoleScreen() {
+        val counter = MoleViewModel.counter
+        val stay = MoleViewModel.stay
+        Box (
+            modifier = Modifier.fillMaxSize(),
+            Alignment.Center
+        ) {
+            Text("分數: $counter \n時間: $stay")
+        }
+
+        Image(
+            painter = painterResource(id = R.drawable.mole),
+            contentDescription = "地鼠",
+            modifier = Modifier
+                .offset { IntOffset(50, 200) }
+                .size(150.dp)
+                .clickable { MoleViewModel.incrementCounter() }
+        )
+    }
+
 }
+
 
 
