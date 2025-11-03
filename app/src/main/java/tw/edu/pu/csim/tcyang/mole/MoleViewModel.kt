@@ -68,6 +68,10 @@ class MoleViewModel : ViewModel(){
             TODO("Not yet implemented")
         }
 
+        fun getArea(intSize: IntSize, moleSizePx: Any) {}
+
+        val offsetY: Int
+        val offsetX: Int
         val stay: Any
         val counter: Any
     }
